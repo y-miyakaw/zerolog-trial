@@ -1,0 +1,18 @@
+version: "3"
+tasks:
+  setup:
+    desc: "Setup project"
+    cmds:
+      - go install github.com/rubenv/sql-migrate/...@latest
+      - go install github.com/sqlc-dev/sqlc/cmd/sqlc@v1.25.0
+      - go install github.com/cosmtrek/air@latest
+
+  build:
+    desc: build container
+    cmds:
+      - docker build -t zerolog-trial .
+
+  run:
+    desc: run container
+    cmds:
+    - docker run -d --name zerolog-trial --env-file .env -v ./:/app -p 8077:8080 zerolog-trial
